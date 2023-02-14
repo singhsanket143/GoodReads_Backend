@@ -1,19 +1,22 @@
+const logger = require('../config/logger');
+
 class CrudRepository {
     constructor(model) {
+        console.log("creating crud repo")
         this.model = model;
     }
 
-    async create(data) {
+    create = async (data) => {
         try {
             const result = await this.model.create(data);
             return result;
         } catch (error) {
-            console.log("Something went wrong in crud repo");
+            logger.error("Something went wrong in crud repo");
             throw error;
         }
     }
 
-    async destroy(id) {
+    destroy = async (id) => {
         try {
             const result = await this.model.findByIdAndDelete(id);
             return result;
@@ -23,7 +26,7 @@ class CrudRepository {
         }
     }
 
-    async get(id) {
+    get = async (id) => {
         try {
             const result = await this.model.findById(id);
             return result;
@@ -33,7 +36,7 @@ class CrudRepository {
         }
     }
 
-    async getAll() {
+    getAll = async () => {
         try {
             const result = await this.model.find({});
             return result;
@@ -43,7 +46,7 @@ class CrudRepository {
         }
     }
 
-    async update(id, data) {
+    update = async (id, data) => {
         try {
             const result = await this.model.findByIdAndUpdate(id, data, {new: true});
             return result;

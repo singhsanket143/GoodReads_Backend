@@ -3,6 +3,7 @@ const CrudRepository = require('./crud-repository');
 
 class UserRespository extends CrudRepository {
     constructor() {
+        console.log("creating userepo")
         super(User);
     }
 }

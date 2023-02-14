@@ -2,12 +2,13 @@ const { StatusCodes } = require('http-status-codes')
 class ValidationError extends Error {
     constructor(error) {
         super();
+        console.log("eror is", error);
         let explanation = [];
-        error.errors.forEach((err) => {
-            explanation.push(err.message);
+        Object.keys(error.errors).forEach((field) => {
+            explanation.push(error.errors[field]);
         });
         this.name = 'ValidationError';
-        this.message = 'Not able to validate the data sent in the request';
+        this.message = error.message;
         this.explanation = explanation;
         this.statusCode = StatusCodes.BAD_REQUEST
     }

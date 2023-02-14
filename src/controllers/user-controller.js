@@ -8,23 +8,23 @@ class UserController {
         this.userService = new UserService();
     }
 
-    async signup(req, res) {
+    signup = async (req, res) => {
         try {
             const user = await this.userService.signup({
                 email: req.body.email,
                 password: req.body.password,
                 username: req.body.username
             });
-            return res.status(StatusCodes.OK).json({
+            return res.status(StatusCodes.CREATED).json({
                 message: 'Successfully created the User',
                 err: {},
                 data: user,
                 success: true
             })
         } catch(error) {
-            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-                message: 'Something went wrong',
-                err: error,
+            return res.status(error.statusCode).json({
+                message: error.message,
+                err: error.explanation,
                 data: {},
                 success: false
             });
@@ -32,4 +32,4 @@ class UserController {
     }
 }
 
-module.exports = UserController;
+module.exports = new UserController();

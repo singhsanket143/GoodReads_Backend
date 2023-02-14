@@ -8,11 +8,14 @@ const userSchema = new mongoose.Schema({
         uniqueCaseInsensitive: true,
         required: [true, "can't be blank"],
         match: [/\S+@\S+\.\S+/, 'is invalid'],
-        index: true
+        index: {
+            unique: true
+        },
     },
     password: {
         type: String,
         required: true,
+        minLength: [3, 'Password cannot be less than 3 characters']
     },
     username: {
         type: String,
@@ -20,7 +23,9 @@ const userSchema = new mongoose.Schema({
         uniqueCaseInsensitive: true,
         required: [true, "can't be blank"],
         match: [/^[a-zA-Z0-9]+$/, 'is invalid'],
-        index: true
+        index: {
+            unique: true
+        },
     }
 });
 
