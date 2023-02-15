@@ -9,6 +9,7 @@ class UserService {
 
     signup = async (data) => {
         try {
+            console.log("Incoming request in service", data);
             const response = await this.userRepository.create(data);
             return response;
         } catch(error) {

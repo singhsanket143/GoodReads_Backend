@@ -10,6 +10,7 @@ class UserController {
 
     signup = async (req, res) => {
         try {
+            console.log("Incoming request in controller", req.body);
             const user = await this.userService.signup({
                 email: req.body.email,
                 password: req.body.password,
