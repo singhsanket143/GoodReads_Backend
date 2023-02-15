@@ -10,7 +10,6 @@ class UserController {
 
     signup = async (req, res) => {
         try {
-            console.log("Incoming request in controller", req.body);
             const user = await this.userService.signup({
                 email: req.body.email,
                 password: req.body.password,
@@ -21,7 +20,7 @@ class UserController {
                 err: {},
                 data: user,
                 success: true
-            })
+            });
         } catch(error) {
             return res.status(error.statusCode).json({
                 message: error.message,
