@@ -3,7 +3,6 @@ const ValidationError = require('../utils/errors/validation-error');
 
 class UserService {
     constructor() {
-        console.log("creating user service")
         this.userRepository = new UserRepository();
     }
 

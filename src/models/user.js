@@ -1,6 +1,9 @@
 const mongoose = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+
+const { JWT_SECRET, JWT_EXPIRY } = require('../config/server-config');
 
 const userSchema = new mongoose.Schema({
     email: {
@@ -39,6 +42,16 @@ userSchema.pre('save', function (next) {
     user.password = encryptedPassword;
     next();
 });
+
+userSchema.methods.comparePassword = function compare(password) {
+    return bcrypt.compareSync(this.password, password);
+}
+
+userSchema.methods.generateJWT = function generate() {
+    return jwt.sign({id: this._id, email: this.email}, JWT_SECRET, {
+        expiresIn: JWT_EXPIRY
+    });
+}
 
 const User = mongoose.model('User', userSchema);
 
