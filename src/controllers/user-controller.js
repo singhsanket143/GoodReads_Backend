@@ -1,6 +1,10 @@
 const { StatusCodes } = require('http-status-codes');
 
 const { UserService } = require('../services/index');
+const { 
+    internalServerErrorResponse, 
+    customErrorResponse 
+} = require('../utils/common/response-objects');
 
 
 class UserController {
@@ -22,12 +26,35 @@ class UserController {
                 success: true
             });
         } catch(error) {
-            return res.status(error.statusCode).json({
-                message: error.message,
-                err: error.explanation,
-                data: {},
-                success: false
+            if(!error.statusCode) {
+                return res
+                        .status(StatusCodes.INTERNAL_SERVER_ERROR)
+                        .json(internalServerErrorResponse(error));
+            }
+            return res
+                    .status(error.statusCode)
+                    .json(customErrorResponse(error));
+        }
+    }
+
+    signin = async (req, res) => {
+        try {
+            const response = await this.userService.signin({
+                email: req.body.email,
+                password: req.body.password
             });
+            return res.status(StatusCodes.OK).json({
+                data: response
+            });
+        } catch(error) {
+            if(!error.statusCode) {
+                return res
+                        .status(StatusCodes.INTERNAL_SERVER_ERROR)
+                        .json(internalServerErrorResponse(error));
+            }
+            return res
+                    .status(error.statusCode)
+                    .json(customErrorResponse(error));
         }
     }
 }

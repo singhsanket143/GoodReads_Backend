@@ -44,7 +44,12 @@ userSchema.pre('save', function (next) {
 });
 
 userSchema.methods.comparePassword = function compare(password) {
-    return bcrypt.compareSync(this.password, password);
+    try {
+        console.log("inside comp", this.password, password)
+        return bcrypt.compareSync(password, this.password);
+    } catch(error) {
+        throw error;
+    }
 }
 
 userSchema.methods.generateJWT = function generate() {
