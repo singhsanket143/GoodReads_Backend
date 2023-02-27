@@ -1,3 +1,4 @@
+const { StatusCodes } = require('http-status-codes');
 const { UserRepository } = require('../repositories/index');
 const { ClientError } = require('../utils/errors');
 const ValidationError = require('../utils/errors/validation-error');
@@ -29,7 +30,7 @@ class UserService {
                 throw new ClientError({
                     message: 'Invalid data sent from the client',
                     explanation: 'No registered user found for the given email'
-                });
+                }, StatusCodes.NOT_FOUND);
             }
             const passwordMatch = user.comparePassword(data.password);
             if(!passwordMatch) {
