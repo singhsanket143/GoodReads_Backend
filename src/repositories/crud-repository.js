@@ -2,7 +2,6 @@ const logger = require('../config/logger');
 
 class CrudRepository {
     constructor(model) {
-        console.log("creating crud repo")
         this.model = model;
     }
 
