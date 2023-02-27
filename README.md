@@ -61,3 +61,39 @@
         "success": false
     }
     ```
+
+- Sign up
+    localhost:3005/api/v1/signin - POST
+    request object: 
+    ```
+    {
+        email: <email>,
+        password: <password>
+    }
+    ```
+    success response object:
+    ```
+    {
+        "message": "Successfully signed in",
+        "data": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZmM4ZjVkMWY0YmQ2NjQxMWU2M2RjNiIsImVtYWlsIjoiYWRtaW5AZ29vZHJlYWRzLmNvbSIsImlhdCI6MTY3NzQ5NjY4OCwiZXhwIjoxNjc3NTAwMjg4fQ.s8UwpEsY_MfV7MWRRtHCjLaq2s_G7xISjt758G--cYs",
+        "err": {},
+        "success": true
+    }
+    ```
+    failure response object: 
+    ```
+    {
+        "message": "Invalid data sent from the client",
+        "err": "Password given is not correct, please try again!",
+        "data": {},
+        "success": false
+    }
+    ```
+    ```
+    {
+        "message": "Invalid data sent from the client",
+        "err": "No registered user found for the given email",
+        "data": {},
+        "success": false
+    }
+    ```
