@@ -44,7 +44,10 @@ class UserController {
                 password: req.body.password
             });
             return res.status(StatusCodes.OK).json({
-                data: response
+                message: 'Successfully signed in',
+                data: response,
+                err: {},
+                success: true
             });
         } catch(error) {
             if(!error.statusCode) {

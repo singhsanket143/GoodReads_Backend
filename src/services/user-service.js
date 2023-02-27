@@ -31,16 +31,15 @@ class UserService {
                     explanation: 'No registered user found for the given email'
                 });
             }
-            console.log(user, data)
             const passwordMatch = user.comparePassword(data.password);
-            console.log(passwordMatch)
             if(!passwordMatch) {
                 throw new ClientError({
                     message: 'Invalid data sent from the client',
                     explanation: 'Password given is not correct, please try again!'
                 })
             }
-            return user;
+            const jwtToken = user.generateJWT();
+            return jwtToken;
         } catch(error) {
             throw error;
         }

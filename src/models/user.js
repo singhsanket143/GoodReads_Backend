@@ -45,7 +45,6 @@ userSchema.pre('save', function (next) {
 
 userSchema.methods.comparePassword = function compare(password) {
     try {
-        console.log("inside comp", this.password, password)
         return bcrypt.compareSync(password, this.password);
     } catch(error) {
         throw error;
@@ -53,9 +52,15 @@ userSchema.methods.comparePassword = function compare(password) {
 }
 
 userSchema.methods.generateJWT = function generate() {
-    return jwt.sign({id: this._id, email: this.email}, JWT_SECRET, {
-        expiresIn: JWT_EXPIRY
-    });
+    try {
+        return jwt.sign({id: this._id, email: this.email}, JWT_SECRET, {
+            expiresIn: JWT_EXPIRY
+        });
+    } catch(error) {
+        console.log(error);
+        throw error;
+    }
+    
 }
 
 const User = mongoose.model('User', userSchema);
