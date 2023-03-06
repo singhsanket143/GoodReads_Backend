@@ -22,5 +22,6 @@ router.get('/home', AuthMiddlewares.isAuthenticated, (req, res) => {
 
 
 router.post('/authors', AuthorController.create);
+router.get('/authors', AuthorController.getAll);
 
 module.exports = router;

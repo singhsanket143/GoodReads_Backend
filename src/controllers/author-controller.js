@@ -33,6 +33,27 @@ class AuthController {
                     .json(customErrorResponse(error));
         }
     }
+
+    getAll = async (req, res) => {
+        try {
+            const authors = await this.authorService.getAll();
+            return res.status(StatusCodes.OK).json({
+                message: 'Successfully fetched all the Authors',
+                err: {},
+                data: authors,
+                success: true
+            })
+        } catch(error) {
+            if(!error.statusCode) {
+                return res
+                        .status(StatusCodes.INTERNAL_SERVER_ERROR)
+                        .json(internalServerErrorResponse(error));
+            }
+            return res
+                    .status(error.statusCode)
+                    .json(customErrorResponse(error));
+        }
+    }
 }
 
 module.exports = new AuthController();

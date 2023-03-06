@@ -22,6 +22,17 @@ class AuthorService {
             throw error;
         }
     }
+
+    getAll = async () => {
+        try {
+            const authors = await this.authorRepository.getAll();
+            return authors;
+        } catch(error) {
+            logger.error("Something went wrong in Author Service : GetAll", error);
+            throw error;
+            
+        }
+    }
 }
 
 module.exports = AuthorService;
