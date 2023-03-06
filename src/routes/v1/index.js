@@ -1,6 +1,6 @@
 const express = require('express');
 
-const { UserController } = require('../../controllers/index');
+const { UserController, AuthorController } = require('../../controllers/index');
 const { AuthMiddlewares } = require('../../middlewares/index');
 
 const router = express.Router();
@@ -18,6 +18,9 @@ router.post(
 
 router.get('/home', AuthMiddlewares.isAuthenticated, (req, res) => {
     return res.status(200).json({message: "ok"});
-})
+});
+
+
+router.post('/authors', AuthorController.create);
 
 module.exports = router;
