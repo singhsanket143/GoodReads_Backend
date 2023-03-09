@@ -1,7 +1,7 @@
 const express = require('express');
 
 const { UserController, AuthorController } = require('../../controllers/index');
-const { AuthMiddlewares } = require('../../middlewares/index');
+const { AuthMiddlewares, AuthorMiddlewares } = require('../../middlewares/index');
 
 const router = express.Router();
 
@@ -21,7 +21,11 @@ router.get('/home', AuthMiddlewares.isAuthenticated, (req, res) => {
 });
 
 
-router.post('/authors', AuthorController.create);
+router.post(
+    '/authors', 
+    AuthorMiddlewares.validateCreateRequest,
+    AuthorController.create
+);
 router.get('/authors', AuthorController.getAll);
 
 module.exports = router;
