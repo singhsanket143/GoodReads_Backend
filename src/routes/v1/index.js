@@ -1,7 +1,7 @@
 const express = require('express');
 
 const { UserController, AuthorController, GenreController, BookController } = require('../../controllers/index');
-const { AuthMiddlewares, AuthorMiddlewares } = require('../../middlewares/index');
+const { AuthMiddlewares, AuthorMiddlewares, BookMiddlewares } = require('../../middlewares/index');
 
 const router = express.Router();
 
@@ -32,5 +32,10 @@ router.post('/genres', GenreController.create);
 
 router.post('/books', BookController.create);
 router.get('/books', BookController.getAll);
+router.get(
+    '/books/:id', 
+    BookMiddlewares.validateGetRequest, 
+    BookController.get
+);
 
 module.exports = router;

@@ -164,3 +164,49 @@
         "success": true
     }
     ```
+
+- Get Book by id:  localhost:3005/api/v1/books/:id - GET
+    - Success resposne object
+    ```
+    {
+        "message": "Successfully fetched the Book",
+        "err": {},
+        "data": {
+            "_id": "640a0280d6280c9ca58aef41",
+            "title": "ABC1",
+            "description": "Something",
+            "author": "64063c7abf4bacf0fc6ede00",
+            "genres": [
+                "6409fe4709fc38c7d4f77d7c",
+                "640a0120da282a962a095b0d"
+            ],
+            "pages": 500,
+            "publishDate": "January 1, 2011",
+            "rating": 0,
+            "createdAt": "2023-03-09T16:00:00.035Z",
+            "updatedAt": "2023-03-09T16:00:00.035Z",
+            "__v": 0
+        },
+        "success": true
+    }
+    ```
+    - error response object - 404
+    ```
+    {
+        "message": "Invalid data sent from the client",
+        "err": "No book found for the given id",
+        "data": {},
+        "success": false
+    }
+    ```
+    - error resposne object - 400
+    ```
+    {
+        "message": "Something went wrong",
+        "err": {
+            "explanation": "Invalid book id present in the request"
+        },
+        "data": {},
+        "success": false
+    }
+    ```

@@ -59,6 +59,27 @@ class BookController {
                     .json(customErrorResponse(error));
         }
     }
+
+    get = async (req, res) => {
+        try {
+            const book = await this.bookService.get(req.params.id);
+            return res.status(StatusCodes.OK).json({
+                message: 'Successfully fetched the Book',
+                err: {},
+                data: book,
+                success: true
+            })
+        } catch(error) {
+            if(!error.statusCode) {
+                return res
+                        .status(StatusCodes.INTERNAL_SERVER_ERROR)
+                        .json(internalServerErrorResponse(error));
+            }
+            return res
+                    .status(error.statusCode)
+                    .json(customErrorResponse(error));
+        }
+    }
 }
 
 module.exports = new BookController();

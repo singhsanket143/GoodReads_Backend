@@ -1,4 +1,5 @@
 const { StatusCodes } = require('http-status-codes');
+const mongoose = require('mongoose');
 const { 
     internalServerErrorResponse 
 } = require('../utils/common/response-objects');
@@ -9,16 +10,16 @@ const {
 * @param res -> http response object
 * @param next -> next middleware
 */
-const validateCreateRequest = async (req, res, next) => {
+const validateGetRequest = async (req, res, next) => {
    // validate name of the user
-   if(!req.body.name) {
+   if(!mongoose.isValidObjectId(req.params.id)) {
        return res
                .status(StatusCodes.BAD_REQUEST)
-               .json(internalServerErrorResponse({explanation: "Name of the author not present in the request"}));
+               .json(internalServerErrorResponse({explanation: "Invalid book id present in the request"}));
    }
    next();
 }
 
 module.exports = {
-    validateCreateRequest
+    validateGetRequest
 }
