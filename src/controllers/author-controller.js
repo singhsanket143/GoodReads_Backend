@@ -6,7 +6,7 @@ const {
     customErrorResponse 
 } = require('../utils/common/response-objects');
 
-class AuthController {
+class AuthorController {
     constructor() {
         this.authorService = new AuthorService();
     }
@@ -56,4 +56,4 @@ class AuthController {
     }
 }
 
-module.exports = new AuthController();
+module.exports = new AuthorController();

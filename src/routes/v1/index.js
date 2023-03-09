@@ -1,6 +1,6 @@
 const express = require('express');
 
-const { UserController, AuthorController } = require('../../controllers/index');
+const { UserController, AuthorController, GenreController } = require('../../controllers/index');
 const { AuthMiddlewares, AuthorMiddlewares } = require('../../middlewares/index');
 
 const router = express.Router();
@@ -27,5 +27,7 @@ router.post(
     AuthorController.create
 );
 router.get('/authors', AuthorController.getAll);
+
+router.post('/genres', GenreController.create);
 
 module.exports = router;
