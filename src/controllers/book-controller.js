@@ -1,25 +1,30 @@
 const { StatusCodes } = require('http-status-codes');
 
-const { GenreService } = require('../services/index');
+const { BookService } = require('../services/index');
 const { 
     internalServerErrorResponse, 
     customErrorResponse 
 } = require('../utils/common/response-objects');
 
-class GenreController {
+class BookController {
     constructor() {
-        this.genreService = new GenreService();
+        this.bookService = new BookService();
     }
 
     create = async (req, res) => {
         try {
-            const genre = await this.genreService.create({
-                name: req.body.name
+            const book = await this.bookService.create({
+                title: req.body.title,
+                description: req.body.description,
+                author: req.body.author,
+                genres: req.body.genres,
+                pages: req.body.pages,
+                publishDate: req.body.publishDate,
             });
             return res.status(StatusCodes.CREATED).json({
-                message: 'Successfully created the Genre',
+                message: 'Successfully created the Book',
                 err: {},
-                data: genre,
+                data: book,
                 success: true
             });
         } catch(error) {
@@ -35,4 +40,4 @@ class GenreController {
     }
 }
 
-module.exports = new GenreController();
+module.exports = new BookController();

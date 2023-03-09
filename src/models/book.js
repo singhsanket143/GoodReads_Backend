@@ -28,6 +28,7 @@ const bookSchema = new mongoose.Schema({
     },
     rating: {
         type: Number,
+        default: 0,
         required: [true, "Can't be blank"]
     }
 }, {timestamps: true});
