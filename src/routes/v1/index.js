@@ -31,5 +31,6 @@ router.get('/authors', AuthorController.getAll);
 router.post('/genres', GenreController.create);
 
 router.post('/books', BookController.create);
+router.get('/books', BookController.getAll);
 
 module.exports = router;

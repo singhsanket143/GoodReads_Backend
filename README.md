@@ -112,7 +112,7 @@
         "publishDate": "January 1, 2011"
     }
     ```
-    - response object
+    - success response object
     ```
     {
         "message": "Successfully created the Book",
@@ -133,6 +133,34 @@
             "updatedAt": "2023-03-09T16:00:00.035Z",
             "__v": 0
         },
+        "success": true
+    }
+    ```
+
+- Get all Books:  localhost:3005/api/v1/books - GET
+    - Success response object
+    ```
+    {
+        "message": "Successfully fetched all the Books",
+        "err": {},
+        "data": [
+            {
+                "_id": "640a0280d6280c9ca58aef41",
+                "title": "ABC1",
+                "description": "Something",
+                "author": "64063c7abf4bacf0fc6ede00",
+                "genres": [
+                    "6409fe4709fc38c7d4f77d7c",
+                    "640a0120da282a962a095b0d"
+                ],
+                "pages": 500,
+                "publishDate": "January 1, 2011",
+                "rating": 0,
+                "createdAt": "2023-03-09T16:00:00.035Z",
+                "updatedAt": "2023-03-09T16:00:00.035Z",
+                "__v": 0
+            }
+        ],
         "success": true
     }
     ```

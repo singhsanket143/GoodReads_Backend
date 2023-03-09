@@ -23,6 +23,17 @@ class BookService {
         }
     }
 
+    getAll = async () => {
+        try {
+            const books = await this.bookRepository.getAll();
+            return books;
+        } catch(error) {
+            logger.error("Something went wrong in Book Service : GetAll", error);
+            throw error;
+            
+        }
+    }
+
 }
 
 module.exports = BookService;
