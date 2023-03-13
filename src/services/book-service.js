@@ -1,4 +1,4 @@
-const { BookRepository } = require('../repositories/index');
+const { BookRepository, AuthorRepository } = require('../repositories/index');
 const logger = require('../config/logger');
 const ValidationError = require('../utils/errors/validation-error');
 const { ClientError } = require('../utils/errors');
@@ -7,11 +7,15 @@ const { StatusCodes } = require('http-status-codes');
 class BookService {
     constructor() {
         this.bookRepository = new BookRepository();
+        this.authorRepository = new AuthorRepository();
     }
 
     create = async (data) => {
         try {
             const book = await this.bookRepository.create(data);
+            const author = await this.authorRepository.get(data.author);
+            author.books.push(book.id);
+            await author.save();
             return book;
         } catch(error) {
             logger.error("Something went wrong in Book Service : Create", error);
@@ -39,12 +43,14 @@ class BookService {
     get = async (id) => {
         try {
             const book = await this.bookRepository.get(id);
+            const totalBookRating = await this.bookRepository.getTotalBookRatings(id);
             if(!book) {
                 throw new ClientError({
                     message: 'Invalid data sent from the client',
                     explanation: 'No book found for the given id'
                 }, StatusCodes.NOT_FOUND);
             }
+            book.totalBookRating = totalBookRating;
             return book;
         } catch(error) {
             logger.error("Something went wrong in Book Service : Get", error);
