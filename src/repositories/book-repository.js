@@ -9,34 +9,87 @@ class BookRepository extends CrudRepository {
         super(Book);
     }
 
-    updateRatingByUser = async (bookId, userId, rating) => {
+    getBookRatingByAUser = async (bookId, userId) => {
         try {
-            const book = await Book.findById(bookId);
-            const totalBookRatings = await UserBookRating.find({
-                bookId: bookId
+            const rating = await UserBookRating.findOne({
+                bookId: bookId,
+                userId: userId
             });
-            const totalBookRatingsCount = totalBookRatings.length;
-            const userBookRating = await UserBookRating.findOne({
-                userId: userId,
-                bookId: bookId
-            });
-            const currentBookRating = book.rating;
-            if(userBookRating) {
-                var newRating = ((totalBookRatingsCount * currentBookRating) - userBookRating.rating + rating) / totalBookRatingsCount;
-            } else {
-                var newRating = ((totalBookRatingsCount * currentBookRating) + rating) / (totalBookRatingsCount + 1);
-                await UserBookRating.create({
-                    bookId: bookId,
-                    userId: userId,
-                    rating: rating
-                });
-            }
-            return newRating;
+            return rating;
         } catch(error) {
-            logger.error("Something went wrong in book repo", error);
+            logger.error('Something went wrong in Book Repository', error);
             throw error;
         }
     }
+
+    getTotalBookRatings = async (bookId) => {
+        try {
+            const ratings = await UserBookRating.find({
+                bookId: bookId
+            }).select('id');
+            if(!ratings) return 0;
+            return ratings.length;
+        } catch(error) {
+            logger.error('Something went wrong in Book Repository', error);
+            throw error;
+        }
+    }
+
+    addUserRating = async (bookId, userId, rating) => {
+        try {
+            const userRating = await UserBookRating.create({
+                bookId: bookId,
+                userId: userId,
+                rating: rating
+            });
+            return userRating;
+        } catch(error) {
+            logger.error('Something went wrong in Book Repository', error);
+            throw error;
+        }
+    }
+
+    updateUserRating = async (bookId, userId, rating) => {
+        try {
+            const userRating = await UserBookRating.findOneAndUpdate({
+                bookId: bookId,
+                userId: userId,
+            }, {rating: rating});
+            return userRating;
+        } catch(error) {
+            logger.error('Something went wrong in Book Repository', error);
+            throw error;
+        }
+    }
+
+    // updateRatingByUser = async (bookId, userId, rating) => {
+    //     try {
+    //         const book = await Book.findById(bookId);
+    //         const totalBookRatings = await UserBookRating.find({
+    //             bookId: bookId
+    //         });
+    //         const totalBookRatingsCount = totalBookRatings.length;
+    //         const userBookRating = await UserBookRating.findOne({
+    //             userId: userId,
+    //             bookId: bookId
+    //         });
+    //         const currentBookRating = book.rating;
+    //         if(userBookRating) {
+    //             var newRating = ((totalBookRatingsCount * currentBookRating) - userBookRating.rating + rating) / totalBookRatingsCount;
+    //         } else {
+    //             var newRating = ((totalBookRatingsCount * currentBookRating) + rating) / (totalBookRatingsCount + 1);
+    //             await UserBookRating.create({
+    //                 bookId: bookId,
+    //                 userId: userId,
+    //                 rating: rating
+    //             });
+    //         }
+    //         return newRating;
+    //     } catch(error) {
+    //         logger.error("Something went wrong in book repo", error);
+    //         throw error;
+    //     }
+    // }
 }
 
 module.exports = BookRepository;

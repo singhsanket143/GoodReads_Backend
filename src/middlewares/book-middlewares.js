@@ -20,6 +20,16 @@ const validateGetRequest = async (req, res, next) => {
    next();
 }
 
+const validateUpdateUserRatingRequest = async (req, res, next) => {
+    if(isNaN(req.params.rating)) {
+        return res
+               .status(StatusCodes.BAD_REQUEST)
+               .json(internalServerErrorResponse({explanation: "Invalid rating present in the request"}));
+    }
+    next();
+}
+
 module.exports = {
-    validateGetRequest
+    validateGetRequest,
+    validateUpdateUserRatingRequest
 }

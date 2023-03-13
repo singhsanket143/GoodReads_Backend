@@ -15,5 +15,5 @@ const userBookRatingSchema = new mongoose.Schema({
     }
 }, {timestamps: true});
 
-const UserBookRatingModel = mongoose.model('UserBookRatingModel', userBookRatingSchema);
+const UserBookRatingModel = mongoose.model('UserBookRating', userBookRatingSchema);
 module.exports = UserBookRatingModel

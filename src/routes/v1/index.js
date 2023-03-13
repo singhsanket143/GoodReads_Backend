@@ -38,4 +38,11 @@ router.get(
     BookController.get
 );
 
+router.patch(
+    '/books/:id/rate/:rating',
+    BookMiddlewares.validateUpdateUserRatingRequest,
+    AuthMiddlewares.isAuthenticated,
+    BookController.updateUserRating
+);
+
 module.exports = router;
