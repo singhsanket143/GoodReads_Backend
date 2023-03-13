@@ -54,7 +54,7 @@ class BookService {
 
     updateRating = async (userId, bookId, rating) => {
         try {
-            if(rating > 5) {
+            if(rating > 5 || rating <= 0) {
                 throw new ClientError({
                     message: 'Invalid data sent from the client',
                     explanation: 'Invalid rating value'

@@ -210,3 +210,16 @@
         "success": false
     }
     ```
+
+- Rate a book 
+
+    localhost:3005/api/v1/books/:id/rate/:rating - Patch
+    - Success response
+    ```
+    {
+        "message": "Successfully rated the Book",
+        "err": {},
+        "data": 2,
+        "success": true
+    }
+    ```
