@@ -1,17 +1,32 @@
 const { StatusCodes } = require('http-status-codes');
-const { UserRepository } = require('../repositories/index');
+const { UserRepository, BookShelfRepository } = require('../repositories/index');
 const { ClientError } = require('../utils/errors');
 const ValidationError = require('../utils/errors/validation-error');
 
 class UserService {
     constructor() {
         this.userRepository = new UserRepository();
+        this.bookShelfRepository = new BookShelfRepository();
     }
 
     signup = async (data) => {
         try {
-            const response = await this.userRepository.create(data);
-            return response;
+            const user = await this.userRepository.create(data);
+            await this.bookShelfRepository.bulkCreate([
+                {
+                    userId: user.id,
+                    name: 'read'
+                },
+                {
+                    userId: user.id,
+                    name: 'currently_reading'
+                },
+                {
+                    userId: user.id,
+                    name: 'want_to_read'
+                }
+            ])
+            return user;
         } catch(error) {
             if(error.name == 'ValidationError') {
                 throw new ValidationError({

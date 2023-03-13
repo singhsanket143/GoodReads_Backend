@@ -1,6 +1,6 @@
 const express = require('express');
 
-const { UserController, AuthorController, GenreController, BookController } = require('../../controllers/index');
+const { UserController, AuthorController, GenreController, BookController, BookShelfController } = require('../../controllers/index');
 const { AuthMiddlewares, AuthorMiddlewares, BookMiddlewares } = require('../../middlewares/index');
 
 const router = express.Router();
@@ -44,5 +44,23 @@ router.patch(
     AuthMiddlewares.isAuthenticated,
     BookController.updateUserRating
 );
+
+router.post(
+    '/bookshelves',
+    AuthMiddlewares.isAuthenticated,
+    BookShelfController.create
+)
+
+router.get(
+    '/bookshelves',
+    AuthMiddlewares.isAuthenticated,
+    BookShelfController.getAllShelvesForAUser
+)
+
+router.patch(
+    '/bookshelves/:bookId/add/:shelf',
+    AuthMiddlewares.isAuthenticated,
+    BookShelfController.addBookToShelf
+)
 
 module.exports = router;

@@ -223,3 +223,110 @@
         "success": true
     }
     ```
+
+- Create a new book shelf
+
+    localhost:3005/api/v1/bookshelves - POST - AUTH
+    - request object:
+    ```
+    {
+        name: 'my readings'
+    }
+    ```
+    - Success response
+    ```
+    {
+        "message": "Successfully created the BookShelf",
+        "err": {},
+        "data": {
+            "userId": "640f2d8f4ecc33392931f0a6",
+            "name": "my readings",
+            "books": [],
+            "_id": "640f30d3fc393542e9d2d3d1",
+            "createdAt": "2023-03-13T14:18:59.060Z",
+            "updatedAt": "2023-03-13T14:18:59.060Z",
+            "__v": 0
+        },
+        "success": true
+    }
+    ```
+
+- Get all shelves of a user
+    localhost:3005/api/v1/bookshelves - GET - AUTH
+    - response object:
+    ```
+    {
+        "message": "Successfully fetched the BookShelves for the user",
+        "err": {},
+        "data": [
+            {
+                "_id": "640f2d8f4ecc33392931f0ab",
+                "userId": "640f2d8f4ecc33392931f0a6",
+                "name": "read",
+                "books": [],
+                "__v": 0,
+                "createdAt": "2023-03-13T14:05:03.113Z",
+                "updatedAt": "2023-03-13T14:05:03.113Z"
+            },
+            {
+                "_id": "640f2d8f4ecc33392931f0ac",
+                "userId": "640f2d8f4ecc33392931f0a6",
+                "name": "currently_reading",
+                "books": [],
+                "__v": 0,
+                "createdAt": "2023-03-13T14:05:03.113Z",
+                "updatedAt": "2023-03-13T14:05:03.113Z"
+            },
+            {
+                "_id": "640f2d8f4ecc33392931f0ad",
+                "userId": "640f2d8f4ecc33392931f0a6",
+                "name": "want_to_read",
+                "books": [],
+                "__v": 0,
+                "createdAt": "2023-03-13T14:05:03.113Z",
+                "updatedAt": "2023-03-13T14:05:03.113Z"
+            },
+            {
+                "_id": "640f30d3fc393542e9d2d3d1",
+                "userId": "640f2d8f4ecc33392931f0a6",
+                "name": "my readings",
+                "books": [],
+                "createdAt": "2023-03-13T14:18:59.060Z",
+                "updatedAt": "2023-03-13T14:18:59.060Z",
+                "__v": 0
+            }
+        ],
+        "success": true
+    }
+    ```
+- Add book to a user's shelf 
+
+    localhost:3005/api/v1/bookshelves/:bookid/add/:shelf - PATCH - AUTH
+    - Success response object
+    ```
+    {
+        "message": "Successfully added book to the BookShelf for the user",
+        "err": {},
+        "data": {
+            "_id": "640f2d8f4ecc33392931f0ad",
+            "userId": "640f2d8f4ecc33392931f0a6",
+            "name": "want_to_read",
+            "books": [
+                "640f2630fce985aa9bf4cdc1"
+            ],
+            "__v": 3,
+            "createdAt": "2023-03-13T14:05:03.113Z",
+            "updatedAt": "2023-03-13T15:40:12.491Z"
+        },
+        "success": true
+    }
+    ```
+    - error response object
+    ```
+    {
+        "message": "Book already in the shelf",
+        "err": "Book id already present in the user shelf provided",
+        "data": {},
+        "success": false
+    }
+    ```

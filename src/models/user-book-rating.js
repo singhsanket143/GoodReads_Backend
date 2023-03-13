@@ -3,11 +3,13 @@ const mongoose = require('mongoose');
 const userBookRatingSchema = new mongoose.Schema({
     bookId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Book'
+        ref: 'Book',
+        required: [true, "can't be blank"],
     },
     userId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
+        ref: 'User',
+        required: [true, "can't be blank"],
     },
     rating: {
         type: Number,
