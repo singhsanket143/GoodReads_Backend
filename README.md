@@ -75,7 +75,10 @@
     ```
     {
         "message": "Successfully signed in",
-        "data": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZmM4ZjVkMWY0YmQ2NjQxMWU2M2RjNiIsImVtYWlsIjoiYWRtaW5AZ29vZHJlYWRzLmNvbSIsImlhdCI6MTY3NzQ5NjY4OCwiZXhwIjoxNjc3NTAwMjg4fQ.s8UwpEsY_MfV7MWRRtHCjLaq2s_G7xISjt758G--cYs",
+        "data": {
+            token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZmM4ZjVkMWY0YmQ2NjQxMWU2M2RjNiIsImVtYWlsIjoiYWRtaW5AZ29vZHJlYWRzLmNvbSIsImlhdCI6MTY3NzQ5NjY4OCwiZXhwIjoxNjc3NTAwMjg4fQ.s8UwpEsY_MfV7MWRRtHCjLaq2s_G7xISjt758G--cYs",
+            username: <username>
+        },
         "err": {},
         "success": true
     }
@@ -328,5 +331,25 @@
         "err": "Book id already present in the user shelf provided",
         "data": {},
         "success": false
+    }
+    ```
+
+- Get all books from a shelf
+    localhost:3005/api/v1/bookshelves/sarthakshelf
+    - Success response 
+    ```
+    {
+        "message": "Successfully fetched books from the BookShelf for the user",
+        "err": {},
+        "data": {
+            "_id": "6419a47df411999cb4853fa8",
+            "userId": "640f2d8f4ecc33392931f0a6",
+            "name": "sarthakshelf",
+            "books": [],
+            "createdAt": "2023-03-21T12:35:09.992Z",
+            "updatedAt": "2023-03-21T12:35:09.992Z",
+            "__v": 0
+        },
+        "success": true
     }
     ```
