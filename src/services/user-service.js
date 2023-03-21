@@ -55,7 +55,10 @@ class UserService {
                 })
             }
             const jwtToken = user.generateJWT();
-            return jwtToken;
+            return {
+                token: jwtToken,
+                username: user.username
+            };
         } catch(error) {
             throw error;
         }
