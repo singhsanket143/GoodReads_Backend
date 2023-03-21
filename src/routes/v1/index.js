@@ -63,4 +63,10 @@ router.patch(
     BookShelfController.addBookToShelf
 )
 
+router.get(
+    '/bookshelves/:shelf',
+    AuthMiddlewares.isAuthenticated,
+    BookShelfController.getAllBooksForAShelf
+)
+
 module.exports = router;

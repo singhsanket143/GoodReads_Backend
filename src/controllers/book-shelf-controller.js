@@ -77,6 +77,27 @@ class BookShelfController {
                     .json(customErrorResponse(error));
         }
     }
+
+    getAllBooksForAShelf = async (req, res) => {
+        try {
+            const books = await this.bookShelfService.getAllBooksForAShelf(req.user, req.params.shelf);
+            return res.status(StatusCodes.CREATED).json({
+                message: 'Successfully fetched books from the BookShelf for the user',
+                err: {},
+                data: books,
+                success: true
+            });
+        } catch(error) {
+            if(!error.statusCode) {
+                return res
+                        .status(StatusCodes.INTERNAL_SERVER_ERROR)
+                        .json(internalServerErrorResponse(error));
+            }
+            return res
+                    .status(error.statusCode)
+                    .json(customErrorResponse(error));
+        }
+    }
 }
 
 module.exports = new BookShelfController();

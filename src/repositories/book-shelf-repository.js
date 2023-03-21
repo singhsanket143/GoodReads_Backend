@@ -49,7 +49,7 @@ class BookShelfRepository extends CrudRepository {
             const shelf = await BookShelf.findOne({
                 userId: userId,
                 name: shelfName
-            });
+            }).populate('books');
             return shelf;
         } catch(error) {
             logger.error('Something went wrong in BookShelf Repository : getUserShelf', error);

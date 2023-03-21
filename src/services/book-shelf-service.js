@@ -57,6 +57,25 @@ class BookShelfService {
             throw error;
         }
     }
+
+    getAllBooksForAShelf = async (userId, shelfName) => {
+        try {
+            const response = await this.bookShelfRepository.getUserShelf(
+                userId,
+                shelfName
+            );
+            if(!response) {
+                throw new ClientError({
+                    message: 'No Book Shelf Found',
+                    explanation: 'Given book shelf name is not created by the user'
+                })
+            }
+            return response;
+        } catch(error) {
+            logger.error("Something went wrong in Book Shelf Service : addBookToShelf", error);
+            throw error;
+        }
+    }
 }
 
 module.exports = BookShelfService;
