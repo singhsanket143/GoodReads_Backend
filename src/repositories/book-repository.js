@@ -11,7 +11,17 @@ class BookRepository extends CrudRepository {
 
     get = async (id) => {
         try {
-            const result = await this.model.findById(id).populate('author').lean();
+            const result = await this.model.findById(id).populate('author genres').lean();
+            return result;
+        } catch (error) {
+            console.log("Something went wrong in crud repo");
+            throw error;
+        }
+    }
+
+    getAll = async () => {
+        try {
+            const result = await this.model.find({}).populate('genres author').lean();
             return result;
         } catch (error) {
             console.log("Something went wrong in crud repo");
