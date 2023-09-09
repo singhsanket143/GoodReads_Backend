@@ -21,7 +21,12 @@ class BookShelfRepository extends CrudRepository {
         try {
             const shelves = await BookShelf.find({
                 userId: userId
-            }).populate('books');
+            }).populate({
+                path: 'books',
+                populate: {
+                    path: 'author genres',
+                }
+            });
             return shelves;
         } catch(error) {
             logger.error('Something went wrong in BookShelf Repository : getAllShelfsForAUser', error);
