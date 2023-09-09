@@ -58,7 +58,7 @@ router.get(
 )
 
 router.patch(
-    '/bookshelves/:bookId/add/:shelf',
+    '/bookshelves/:shelf/add/:bookId',
     AuthMiddlewares.isAuthenticated,
     BookShelfController.addBookToShelf
 )

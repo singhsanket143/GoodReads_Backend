@@ -37,6 +37,7 @@ class BookShelfController {
 
     getAllShelvesForAUser = async (req, res) => {
         try {
+            console.log("in")
             const shelves = await this.bookShelfService.getAllShelvesForAUser(req.user);
             return res.status(StatusCodes.CREATED).json({
                 message: 'Successfully fetched the BookShelves for the user',

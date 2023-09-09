@@ -37,6 +37,7 @@ class BookShelfService {
     addBookToShelf = async (userId, shelfName, bookId) => {
         try {
             let shelf = await this.bookShelfRepository.getUserShelf(userId, shelfName);
+            console.log("shelf", shelf, userId, shelfName, bookId);
             if(!shelf) {
                 throw new ClientError({
                     message: 'No Shelf found for the user',

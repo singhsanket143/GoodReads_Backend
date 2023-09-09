@@ -77,6 +77,7 @@ const isAuthenticated = async (req, res, next) => {
         req.user = user.id;
         next();
     } catch(error) {
+        console.log(error);
         if(error.name == "JsonWebTokenError") {
             return res
                     .status(StatusCodes.BAD_REQUEST)
